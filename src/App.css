@@ -24,10 +24,6 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +31,33 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#squares {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 5px;
+}
+
+.square {
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 50px;
+  width: 50px;
+}
+
+.unselected {
+  background-color: black;
+  transition: 0.5s;
+}
+
+.selected {
+  background-color: aliceblue;
+  transition: 0.5s;
+}
+
+.unselected:hover {
+  background-color: darkgrey;
+  transition: 0.5s;
 }
