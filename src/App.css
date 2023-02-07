@@ -10,11 +10,29 @@
   color: white;
 }
 
-#squares {
+#types {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 5px;
+}
+
+.type {
+  user-select: none;
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+  background-color: #121213;
+  transition: 0.5s;
+}
+
+.type:hover {
+  background-color: dimgrey;
+  transition: 0.5s;
 }
 
 .square {

@@ -1,23 +1,31 @@
 import { deepEqual, contains } from "./utils"
 
-export const SIDE_SIZE = 10
-
 export type Square = {
     row: number,
     column: number
 }
 
+function squaresStyle(sideSize: number): React.CSSProperties {
+    return {
+        display: "grid",
+        gridTemplateColumns: `repeat(${sideSize}, 1fr)`,
+        gridTemplateRows: `repeat(${sideSize}, 1fr)`,
+        gap: "5px"
+    }
+}
+
 type squaresProps = {
     selectedSquares: Array<Square>,
     selectSquare: (square: Square) => void,
+    sideSize: number,
     correctSquare: Square,
     over: boolean
 }
 
 export function Squares(props: squaresProps) {
     const squares = []
-    for (let row = 1; row <= SIDE_SIZE; row++) {
-        for (let column = 1; column <= SIDE_SIZE; column++) {
+    for (let row = 1; row <= props.sideSize; row++) {
+        for (let column = 1; column <= props.sideSize; column++) {
             const square: Square = { row, column }
             squares.push(
                 <div
@@ -32,7 +40,7 @@ export function Squares(props: squaresProps) {
             )
         }
     }
-    return <div id="squares">{squares}</div>
+    return <div style={squaresStyle(props.sideSize)}>{squares}</div>
 }
 
 function getSquareType(correctSquare: Square, square: Square): string {
