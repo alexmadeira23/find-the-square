@@ -1,21 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
-import { Square, Squares } from './Squares';
+import { Squares } from './Squares';
+import { Square, State } from './Types';
 import { deepEqual, randomNumber } from './utils';
 
-type Phase = "selection" | "play" | "over"
-
 function App() {
+	const [state, setState] = useState<State>({ phase: "selection" })
 
-	const [phase, setPhase] = useState<Phase>("selection")
-
-	const [sideSize, setSideSize] = useState<number>(0)
-
-	const [selectedSquares, setSelectedSquares] = useState(new Array<Square>())
-
-	const [correctSquare, setCorrectSquare] = useState<Square>({ row: 0,column: 0 })
-
-	if (phase === "selection")
+	if (state.phase === "selection")
 		return (
 			<div className="App">
 				<h2>Select side size</h2>
@@ -24,12 +16,15 @@ function App() {
 						<div 
 							key={i} 
 							onClick={() => {
-								setSideSize(i)
-								setCorrectSquare({
-									row: randomNumber(1, i),
-									column: randomNumber(1, i)
-								})
-								setPhase("play")
+								setState(() => ({
+									phase: "play",
+									sideSize: i,
+									selectedSquares: [],
+									correctSquare: {
+										row: randomNumber(1, i),
+										column: randomNumber(1, i)
+									}
+								}))
 							}} 
 							className="type">{i}
 						</div>
@@ -40,17 +35,16 @@ function App() {
 
 	return (
 		<div className="App">
-			<h2>{phase === "over" ? `Won in ${selectedSquares.length} tries!` : selectedSquares.length}</h2>
+			<h2>{state.phase === "over" ? `Won in ${state.selectedSquares!.length} tries!` : state.selectedSquares!.length}</h2>
 			<Squares
-				selectedSquares={selectedSquares}
+			 	state={state}
 				selectSquare={(square: Square) => {
-					if (deepEqual(square, correctSquare))
-						setPhase("over")
-					setSelectedSquares((old) => old.concat([square]))
+					setState(oldState => ({
+						...oldState,
+						phase: deepEqual(square, state.correctSquare) ? "over" : oldState.phase,
+						selectedSquares: oldState.selectedSquares!.concat([square])
+					}))
 				}}
-				sideSize={sideSize}
-				correctSquare={correctSquare}
-				over={phase === "over"}
 			/>
 		</div>
 	)
