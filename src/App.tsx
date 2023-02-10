@@ -16,7 +16,7 @@ function App() {
 						<div 
 							key={i} 
 							onClick={() => {
-								setState(() => ({
+								setState({
 									phase: "play",
 									sideSize: i,
 									selectedSquares: [],
@@ -24,7 +24,7 @@ function App() {
 										row: randomNumber(1, i),
 										column: randomNumber(1, i)
 									}
-								}))
+								})
 							}} 
 							className="type">{i}
 						</div>
