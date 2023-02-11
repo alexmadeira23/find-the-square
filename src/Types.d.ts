@@ -7,7 +7,8 @@ export type Square = {
 
 export type State = {
 	phase: Phase,
+	help: boolean,
 	sideSize?: number,
 	selectedSquares?: Array<Square>,
-	correctSquare?: Square
+	correctSquare?: Square,
 }
