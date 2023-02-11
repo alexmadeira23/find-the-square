@@ -14,8 +14,9 @@ export function Squares(props: { state: State, selectSquare: (square: Square) =>
                         if (!over && !contains(props.state.selectedSquares!, square))
                             props.selectSquare(square)
                     }}
-                    className={`square ${contains(props.state.selectedSquares!, square) ? 
-                        getSquareType(props.state.correctSquare!, square) : over ? "unselected-over" : "unselected"}`}>
+                    style={squareStyle(props.state.sideSize!)}
+                    className={contains(props.state.selectedSquares!, square) ? 
+                        getSquareType(props.state.correctSquare!, square) : over ? "unselected-over" : "unselected"}>
                 </div>
             )
         }
@@ -29,6 +30,16 @@ function squaresStyle(sideSize: number): React.CSSProperties {
         gridTemplateColumns: `repeat(${sideSize}, 1fr)`,
         gridTemplateRows: `repeat(${sideSize}, 1fr)`,
         gap: "5px"
+    }
+}
+
+const SQUARE_SIZE_CONST = 450
+
+function squareStyle(sideSize: number): React.CSSProperties {
+    return {
+        borderRadius: "5px",
+        height: `${SQUARE_SIZE_CONST / sideSize}px`,
+        width: `${SQUARE_SIZE_CONST / sideSize}px`
     }
 }
 

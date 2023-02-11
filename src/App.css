@@ -97,14 +97,13 @@ header {
   transition: 0.5s;
 }
 
-.square {
-  border-radius: 5px;
-  height: 50px;
-  width: 50px;
-}
-
 .unselected {
   background-color: #121213;
+  transition: 0.5s;
+}
+
+.unselected:hover {
+  background-color: dimgrey;
   transition: 0.5s;
 }
 
@@ -125,10 +124,5 @@ header {
 
 .correct {
   background-color: #538d4e;
-  transition: 0.5s;
-}
-
-.unselected:hover {
-  background-color: dimgrey;
   transition: 0.5s;
 }
