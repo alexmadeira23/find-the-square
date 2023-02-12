@@ -2,9 +2,9 @@
 
 A simple game where the player can select the size of the side of the board (between 7, 8, 9, and 10) and one of the squares of the board will be randomly selected. The player must then click squares in the board until they find the correct square. 
 
-![image](https://user-images.githubusercontent.com/76069448/217326376-46b4d513-402d-4340-a9e5-8359e3f14c26.png)
-![image](https://user-images.githubusercontent.com/76069448/217326487-d19373d8-b5e3-4842-9704-7e448ed64864.png)
-![image](https://user-images.githubusercontent.com/76069448/217326609-2df9e219-7612-49f3-8302-b09bcfca115d.png)
+![image](https://user-images.githubusercontent.com/76069448/218329402-97c45031-a956-4b9c-881a-4644881321a1.png)
+![image](https://user-images.githubusercontent.com/76069448/218329436-89d24b7d-d976-48d7-97a7-d7350ac75436.png)
+![image](https://user-images.githubusercontent.com/76069448/218329537-1a0a16c6-9369-4a95-bcdc-b112118f65e9.png)
 
 ## Features
 
