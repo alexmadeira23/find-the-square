@@ -19,8 +19,9 @@ function App() {
 				/>
 				<div className="game">
 					<h3>Select side size</h3>
-					<div id="types">
-						{[7, 8, 9, 10].map(i => 
+					<div id="sizes">
+						{[8, 9, 10, 11, 
+						12, 13, 14, 15].map(i => 
 							<div 
 								key={i} 
 								onClick={() => {
@@ -35,7 +36,7 @@ function App() {
 										}
 									})
 								}} 
-								className="type">{i}
+								className="size">{i}
 							</div>
 						)}
 					</div>

@@ -33,7 +33,7 @@ function squaresStyle(sideSize: number): React.CSSProperties {
     }
 }
 
-const SQUARE_SIZE_CONST = 450
+const SQUARE_SIZE_CONST = 390
 
 function squareStyle(sideSize: number): React.CSSProperties {
     return {
