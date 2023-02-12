@@ -20,6 +20,10 @@ header {
   transition: 0.5s;
 }
 
+.header-title h1 {
+  display: inline;
+}
+
 .header-title h1:hover {
   color: #538d4e;
   transition: 0.5s;
@@ -28,6 +32,17 @@ header {
 .header-info {
   width: 5%;
   text-align: center;
+}
+
+.header-info img {
+  border-radius: 100%;
+  background-color: inherit;
+  transition: 0.5s;
+}
+
+.header-info img:hover {
+  background-color: #538d4e;
+  transition: 0.5s;
 }
 
 .help-container {
