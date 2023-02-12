@@ -5,7 +5,7 @@ export function Help(props: {show: boolean, onClose: () => void}) {
                     <h1>Instructions</h1>
                     <h2>Description</h2>
                     <div>
-                        Find The Square is a simple game where you can select the size of the side of the board and one of the squares of the board will be randomly selected.
+                        Find The Square is a simple game where you can select the size of the side of the board and one of the squares of the board will be randomly selected as the correct square.
                         You must then click squares in the board until you find the correct square.
                     </div>
                     <h2>Helpful Information</h2>

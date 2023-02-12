@@ -1,27 +1,27 @@
-import { Square, State } from "./Types"
+import { Play, Square } from "./Types"
 import { deepEqual, contains } from "./utils"
 
-export function Squares(props: { state: State, selectSquare: (square: Square) => void }) {
+export function Squares(props: { phase: Play, selectSquare: (square: Square) => void }) {
     const squares = []
-    const over = props.state.phase === "over"
-    for (let row = 1; row <= props.state.sideSize!; row++) {
-        for (let column = 1; column <= props.state.sideSize!; column++) {
+    const over = props.phase.over
+    for (let row = 1; row <= props.phase.sideSize; row++) {
+        for (let column = 1; column <= props.phase.sideSize; column++) {
             const square: Square = { row, column }
             squares.push(
                 <div
                     key={`${row}x${column}`}
                     onClick={() => {
-                        if (!over && !contains(props.state.selectedSquares!, square))
+                        if (!over && !contains(props.phase.selectedSquares, square))
                             props.selectSquare(square)
                     }}
-                    style={squareStyle(props.state.sideSize!)}
-                    className={contains(props.state.selectedSquares!, square) ? 
-                        getSquareType(props.state.correctSquare!, square) : over ? "unselected-over" : "unselected"}>
+                    style={squareStyle(props.phase.sideSize)}
+                    className={contains(props.phase.selectedSquares, square) ? 
+                        getSquareType(props.phase.correctSquare, square) : over ? "unselected-over" : "unselected"}>
                 </div>
             )
         }
     }
-    return <div style={squaresStyle(props.state.sideSize!)}>{squares}</div>
+    return <div style={squaresStyle(props.phase.sideSize)}>{squares}</div>
 }
 
 function squaresStyle(sideSize: number): React.CSSProperties {

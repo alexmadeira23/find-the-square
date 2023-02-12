@@ -1,71 +1,88 @@
-import { useState } from 'react';
-import './App.css';
-import { Header } from './Header';
-import { Help } from './Help';
-import { Squares } from './Squares';
-import { Square, State } from './Types';
-import { deepEqual, randomNumber } from './utils';
+import { useState } from 'react'
+import './App.css'
+import { Header } from './Header'
+import { Help } from './Help'
+import { Sizes } from './Sizes'
+import { Squares } from './Squares'
+import { Square, State } from './Types'
+import { deepEqual, randomNumber } from './utils'
 
 function App() {
-	const [state, setState] = useState<State>({ phase: "selection", help: false })
+	const [state, setState] = useState<State>({ phase: { name: "size" }, help: false })
 
-	if (state.phase === "selection")
-		return (
-			<div>
-				<Help show={state.help} onClose={() => setState(oldState => ({...oldState, help: false}))}/>
-				<Header 
-					restart={() => setState({ phase: "selection", help: false })} 
-					onHelp={() => { setState(oldState => ({...oldState, help: true})) }}
-				/>
-				<div className="game">
-					<h3>Select side size</h3>
-					<div id="sizes">
-						{[8, 9, 10, 11, 
-						12, 13, 14, 15].map(i => 
-							<div 
-								key={i} 
-								onClick={() => {
-									setState({
-										phase: "play",
-										help: false,
-										sideSize: i,
-										selectedSquares: [],
-										correctSquare: {
-											row: randomNumber(1, i),
-											column: randomNumber(1, i)
-										}
-									})
-								}} 
-								className="size">{i}
-							</div>
-						)}
-					</div>
-				</div>
-			</div>
-		)
+	const handleHelpClose = () => {
+		setState((oldState) => ({
+			...oldState,
+			help: false,
+		}))
+	}
+
+	const handleRestart = () => {
+		setState({ phase: { name: "size" }, help: false })
+	}
+
+	const handleHelpOpen = () => {
+		setState((oldState) => ({
+			...oldState,
+			help: true,
+		}))
+	}
+
+	const handleSideSizeSelection = (size: number) => {
+		return () => setState({
+			phase: {
+				name: "play",
+				sideSize: size,
+				selectedSquares: [],
+				correctSquare: {
+					row: randomNumber(1, size),
+					column: randomNumber(1, size),
+				},
+				over: false,
+			},
+			help: false,
+		})
+	}
+
+	const handleSquareSelection = (square: Square) => {
+		setState((oldState) => {
+			const { phase } = oldState
+			if (phase.name === "play") {
+				return {
+					phase: {
+						...phase,
+						selectedSquares: phase.selectedSquares.concat([square]),
+						over: deepEqual(square, phase.correctSquare),
+					},
+					help: false,
+				}
+			}
+			return {
+				phase: {
+					name: "size",
+				},
+				help: false,
+			}
+		})
+	}
 
 	return (
 		<div>
-			<Help show={state.help} onClose={() => setState(oldState => ({...oldState, help: false}))}/>
-			<Header 
-				restart={() => setState({ phase: "selection", help: false })} 
-				onHelp={() => { setState(oldState => ({...oldState, help: true})) }}
-			/>
-			<div className="game">
-				<h3>{state.phase === "over" ? `Won in ${state.selectedSquares!.length} tries!` : state.selectedSquares!.length}</h3>
-				<Squares
-					state={state}
-					selectSquare={(square: Square) => {
-						setState(oldState => ({
-							...oldState,
-							phase: deepEqual(square, state.correctSquare) ? "over" : oldState.phase,
-							selectedSquares: oldState.selectedSquares!.concat([square])
-						}))
-					}}
-				/>
-			</div>
+			<Help show={state.help} onClose={handleHelpClose} />
+			<Header restart={handleRestart} onHelp={handleHelpOpen} />
+			{state.phase.name === "size" ? (
+				<div className="game">
+					<h3>Select side size</h3>
+					<Sizes onSizeSelection={handleSideSizeSelection} />
+				</div>
+			) : (
+				<div className="game">
+					<h3>{state.phase.over ? `Won in ${state.phase.selectedSquares.length} tries!` : state.phase.selectedSquares.length}</h3>
+					<Squares phase={state.phase} selectSquare={handleSquareSelection} />
+				</div>
+			)}
 		</div>
 	)
 }
 
-export default App;
+export default App
